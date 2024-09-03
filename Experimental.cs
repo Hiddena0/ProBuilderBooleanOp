@@ -12,16 +12,12 @@ namespace UnityEditor.ProBuilder
 
         internal static bool meshesAreAssets
         {
-            get { return experimentalFeaturesEnabled && s_MeshesAreAssets; }
+            get { return true }
         }
 
         internal static bool experimentalFeaturesEnabled
         {
-#if PROBUILDER_EXPERIMENTAL_FEATURES
             get { return true; }
-#else
-            get { return false; }
-#endif
         }
 
         [UserSettingBlock("Experimental")]
@@ -35,14 +31,12 @@ namespace UnityEditor.ProBuilder
 
             if (EditorGUI.EndChangeCheck())
             {
-                if(enabled)
-                    ScriptingSymbolManager.AddScriptingDefine(k_ExperimentalFeaturesEnabled);
-                else
-                    ScriptingSymbolManager.RemoveScriptingDefine(k_ExperimentalFeaturesEnabled);
+                //if enabled
+                ScriptingSymbolManager.AddScriptingDefine(k_ExperimentalFeaturesEnabled);
             }
 
-            if(enabled)
-            {
+            //if(enabled)
+            //{
                 using (new SettingsGUILayout.IndentedGroup())
                 {
                     s_MeshesAreAssets.value = SettingsGUILayout.SettingsToggle("Store Mesh as Asset", s_MeshesAreAssets, searchContext);
@@ -50,7 +44,7 @@ namespace UnityEditor.ProBuilder
                     if (s_MeshesAreAssets.value)
                         EditorGUILayout.HelpBox("Please note that this feature is untested, and may result in instabilities or lost work. Proceed with caution!", MessageType.Warning);
                 }
-            }
+            //}
         }
     }
 }
